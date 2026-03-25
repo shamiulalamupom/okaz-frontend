@@ -1,10 +1,22 @@
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
-user: any;
+@Component({
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
+})
 
-constructor(private authService: AuthService) {}
+export class ProfileComponent implements OnInit {
 
-ngOnInit() {
-  this.authService.currentUser$.subscribe(user => {
-    this.user = user;
-  });
+  user: any;
+
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    this.authService.currentUser$.subscribe((user: any) => {
+      this.user = user;
+    });
+  }
+
 }
