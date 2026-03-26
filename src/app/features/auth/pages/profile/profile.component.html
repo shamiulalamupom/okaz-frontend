@@ -1,0 +1,15 @@
+<section class="profile-page">
+  <h1>Profile</h1>
+
+  @if (user(); as currentUser) {
+    <div class="profile-card">
+      <p><strong>ID:</strong> {{ currentUser.id }}</p>
+      <p><strong>Name:</strong> {{ currentUser.name }}</p>
+      <p><strong>Email:</strong> {{ currentUser.email }}</p>
+    </div>
+
+    <button type="button" (click)="logout()">Logout</button>
+  } @else {
+    <p>No user data is available.</p>
+  }
+</section>
