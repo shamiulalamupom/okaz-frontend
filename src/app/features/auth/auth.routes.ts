@@ -1,3 +1,5 @@
+// auth.routes.ts
+
 import { Routes } from '@angular/router';
 
 import { guestGuard } from '../../core/auth/guest.guard';
