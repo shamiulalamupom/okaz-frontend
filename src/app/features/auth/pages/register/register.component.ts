@@ -8,8 +8,7 @@ import { AuthService } from '../../../../core/auth/auth.service';
 @Component({
   selector: 'app-register',
   imports: [ReactiveFormsModule, RouterLink],
-  templateUrl: './register.component.html',
-  // styleUrl: './register.component.css',
+  templateUrl: 'register.component.html',
 })
 export class RegisterComponent {
   private readonly fb = inject(NonNullableFormBuilder);
@@ -23,6 +22,8 @@ export class RegisterComponent {
     name: ['', [Validators.required, Validators.minLength(2)]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
+    confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
+    
   });
 
   submit() {
