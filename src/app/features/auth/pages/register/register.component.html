@@ -1,84 +1,86 @@
-<section class="auth-page"><div class="min-h-screen bg-[#A4F4DC] flex items-center justify-center px-6 font-[Poppins]">
-  <section class="w-full max-w-6xl flex items-start justify-center gap-20">
-    <div class="max-w-[320px]">
-  <h1 class="text-3xl font-semibold leading-tight">
-    Get what you want,<br />
-    delivered simply
-  </h1>
+<div class="min-h-screen bg-[#A4F4DC] font-[Poppins]">
 
+  <div class="max-w-6xl mx-auto flex items-start justify-between px-6 pt-24">
 
-      <p class="m-0 max-w-[420px] text-[15px] leading-[1.55] font-medium text-black">
+   
+    <div class="max-w-md mt-8">
+      <h1 class="text-4xl font-semibold leading-tight">
+        Get what you want,<br />
+        delivered simply
+      </h1>
+
+      <p class="mt-4 text-base text-black/70">
         Shop essentials, manage orders, and track your account in one place.
       </p>
     </div>
 
-    <div class="w-[217px] bg-[#f3f3f3] mt-10 px-[15px] pt-[14px] pb-6 shadow-[0_2px_7px_rgba(0,0,0,0.22)]">
-      <h2 class="m-0 text-[18px] leading-[1.2] font-bold text-black">
+    <div class="w-full max-w-sm bg-[#f3f3f3] p-6 rounded-xl shadow-md">
+
+      <h2 class="text-lg font-bold">
         Create Account
       </h2>
 
-      <p class="mt-1 mb-3 text-[10px] font-normal text-[#222]">
+      <p class="text-sm text-black/60 mt-1 mb-4">
         Sign up to get started
       </p>
 
-      <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col">
-        <label class="mt-[9px] mb-1 text-[11px] font-normal text-black">
-          Full Name
-        </label>
-        <input
-          type="text"
-          formControlName="name"
-          placeholder="Enter your name"
-          class="w-[148px] h-[21px] border-none outline-none bg-[#d9d9d9] px-[7px] text-[10px] text-black placeholder:text-[#111]"
-        />
+      <form class="flex flex-col gap-3">
 
-        <label class="mt-[9px] mb-1 text-[11px] font-normal text-black">
-          Email :
-        </label>
-        <input
-          type="email"
-          formControlName="email"
-          placeholder="Enter your email"
-          class="w-[148px] h-[21px] border-none outline-none bg-[#d9d9d9] px-[7px] text-[10px] text-black placeholder:text-[#111]"
-        />
+     
+        <div>
+          <label class="text-xs text-black">Full Name</label>
+          <input
+            type="text"
+            placeholder="Enter your name"
+            class="w-full h-10 mt-1 rounded-md bg-gray-200 px-3 text-sm outline-none"
+          />
+        </div>
 
-        <label class="mt-[9px] mb-1 text-[11px] font-normal text-black">
-          Password
-        </label>
-        <input
-          type="password"
-          formControlName="password"
-          placeholder="Enter your password"
-          class="w-[148px] h-[21px] border-none outline-none bg-[#d9d9d9] px-[7px] text-[10px] text-black placeholder:text-[#111]"
-        />
-        <label class="mt-[9px] mb-1 text-[11px] font-normal text-black">
-         Confirm password
-        </label>
-        <input
-        type="password"
-        formControlName="confirmPassword"
-        placeholder="Re-enter your password"
-        class="w-[148px] h-[21px] border-none outline-none bg-[#d9d9d9] px-[7px] text-[10px] text-black placeholder:text-[#111]"/>
+     
+        <div>
+          <label class="text-xs text-black">Email</label>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            class="w-full h-10 mt-1 rounded-md bg-gray-200 px-3 text-sm outline-none"
+          />
+        </div>
 
+    
+        <div>
+          <label class="text-xs text-black">Password</label>
+          <input
+            type="password"
+            placeholder="Enter your password"
+            class="w-full h-10 mt-1 rounded-md bg-gray-200 px-3 text-sm outline-none"
+          />
+        </div>
+
+   
+        <div>
+          <label class="text-xs text-black">Confirm Password</label>
+          <input
+            type="password"
+            placeholder="Re-enter your password"
+            class="w-full h-10 mt-1 rounded-md bg-gray-200 px-3 text-sm outline-none"
+          />
+        </div>
+
+     
         <button
           type="submit"
-          [disabled]="isSubmitting()"
-          class="mt-[21px] w-[62px] h-[26px] border-none bg-[#1e90ff] text-black text-[11px] font-bold cursor-pointer shadow-[0_2px_4px_rgba(0,0,0,0.28)]"
+          class="mt-4 w-full h-10 bg-blue-500 text-white text-sm font-semibold rounded-md shadow hover:bg-blue-600 transition"
         >
           Sign up
         </button>
       </form>
 
-      @if (errorMessage()) {
-        <p class="mt-2 text-[10px] text-red-600">
-          {{ errorMessage() }}
-        </p>
-      }
-
-      <p class="mt-[18px] text-[10px] font-normal text-black">
+      <p class="mt-4 text-xs text-black/70">
         Already have an account?
-        <a routerLink="/login" class="text-blue-600 no-underline">log in</a>
+        <a class="text-blue-600 font-medium cursor-pointer">log in</a>
       </p>
+
     </div>
-  </section>
-</div></section>
+
+  </div>
+</div>
