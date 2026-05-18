@@ -3,6 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs';
 
+import { environment } from '../../../environments/environment';
 import { AuthState, LoginPayload, RegisterPayload, User } from './auth.models';
 
 @Injectable({
@@ -20,7 +21,7 @@ export class AuthService {
   readonly isAuthenticated = computed(() => !!this.state().token);
 
   login(payload: LoginPayload) {
-    return this.http.post<{ user: User; token: string }>('/api/auth/login', payload).pipe(
+    return this.http.post<{ user: User; token: string }>(`${environment.apiUrl}/auth/login`, payload).pipe(
       tap((response) => {
         this.setState({
           user: response.user,
