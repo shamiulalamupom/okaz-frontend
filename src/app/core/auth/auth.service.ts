@@ -32,7 +32,12 @@ export class AuthService {
   }
 
   register(payload: RegisterPayload) {
-    return this.http.post<{ user: User; token: string }>('/api/auth/register', payload).pipe(
+  return this.http
+    .post<{ user: User; token: string }>(
+      `${environment.apiUrl}/auth/register`,
+      payload,
+    )
+    .pipe(
       tap((response) => {
         this.setState({
           user: response.user,
@@ -40,7 +45,7 @@ export class AuthService {
         });
       }),
     );
-  }
+}
 
   logout() {
     this.setState({
