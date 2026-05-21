@@ -1,8 +1,13 @@
 <section class="bg-blue-500 min-h-screen flex items-center">
+  <!-- Layout principal centré -->
   <div class="max-w-7xl mx-auto w-full px-6 grid md:grid-cols-2 gap-10 items-center">
-    <!-- Texte gauche -->
+
+    <!-- Bloc texte gauche -->
     <div class="text-white">
+      <!-- Titre marketing -->
       <h2 class="text-3xl font-bold mb-4">Get what you want,<br />delivered simply</h2>
+
+      <!-- Description application -->
       <p class="text-sm">Shop essentials, manage orders, and track your account in one place.</p>
     </div>
 
@@ -11,9 +16,13 @@
       <h3 class="text-lg font-semibold mb-2">Welcome Back</h3>
       <p class="text-sm text-gray-500 mb-4">Log into your account</p>
 
+      <!-- Formulaire réactif Angular -->
       <form class="space-y-4" [formGroup]="form" (ngSubmit)="submit()">
+
+        <!-- Email -->
         <div>
           <label class="block text-sm mb-1" for="email">Email :</label>
+
           <input
             id="email"
             type="email"
@@ -21,13 +30,17 @@
             placeholder="Enter your email"
             class="w-full px-3 py-2 border rounded bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
+
+          <!-- Erreur email -->
           @if (form.controls.email.touched && form.controls.email.invalid) {
             <p class="text-xs text-red-500 mt-1">Enter a valid email.</p>
           }
         </div>
 
+        <!-- Password -->
         <div>
           <label class="block text-sm mb-1" for="password">Password</label>
+
           <input
             id="password"
             type="password"
@@ -35,19 +48,24 @@
             placeholder="Enter your password"
             class="w-full px-3 py-2 border rounded bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
+
+          <!-- Erreur password -->
           @if (form.controls.password.touched && form.controls.password.invalid) {
             <p class="text-xs text-red-500 mt-1">Password must be at least 6 characters.</p>
           }
         </div>
 
+        <!-- Forgot password -->
         <div>
           <a href="#" class="text-xs text-blue-500 hover:underline"> Forget password? </a>
         </div>
 
+        <!-- Erreur backend -->
         @if (errorMessage()) {
           <p class="text-sm text-red-600">{{ errorMessage() }}</p>
         }
 
+        <!-- Submit -->
         <button
           type="submit"
           [disabled]="isSubmitting()"
@@ -57,6 +75,7 @@
         </button>
       </form>
 
+      <!-- Link register -->
       <p class="text-xs text-gray-600 mt-4 text-center">
         Dont have an account?
         <a routerLink="/auth/register" class="text-blue-500 hover:underline">Sign up</a>
