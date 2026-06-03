@@ -1,76 +1,109 @@
-<section class="min-h-screen bg-slate-50">
-  <header class="border-b border-slate-200 bg-white">
-    <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-      <a routerLink="/products" class="text-xl font-bold text-slate-900">Okaz</a>
-      <nav class="flex items-center gap-4 text-sm font-medium text-slate-600">
-        <a routerLink="/products" class="text-blue-600">Products</a>
-        <a routerLink="/profile" class="hover:text-slate-900">Profile</a>
-      </nav>
+<section class="bg-[#A4F4DC] min-h-screen">
+
+  <!-- Navbar -->
+  <nav class="h-[50px] bg-[#eef3ef] flex items-center justify-between px-4">
+    <span class="text-[21px] font-bold text-black">OKAZ</span>
+    <div class="flex items-center gap-14 mr-14">
+      <a routerLink="/" class="text-[18px] font-medium text-black no-underline">Home</a>
+      <a routerLink="/products" class="text-[18px] font-medium text-black no-underline border-b-2 border-black pb-[1px]">Product</a>
+      <a routerLink="/profile" class="text-[18px] font-medium text-black no-underline">Account</a>
     </div>
-  </header>
+  </nav>
 
-  <main class="mx-auto max-w-6xl px-6 py-8">
-    <div class="mb-7 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-      <div class="flex flex-col gap-2">
-        <h1 class="text-3xl font-bold text-slate-950">Products</h1>
-        <p class="max-w-2xl text-sm text-slate-600">Browse available items and open a product to continue toward purchase flows.</p>
-      </div>
+  <!-- Hero banner -->
+  <div class="px-20 pt-12 pb-10">
+    <h1 class="text-4xl font-bold text-black mb-2">Our Products</h1>
+    <p class="text-sm font-medium text-black">Fresh essentials, delivered simply to your door.</p>
+  </div>
 
-      <a
-        routerLink="/products/new"
-        class="inline-flex items-center justify-center rounded bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
+  <!-- Filtres catégories -->
+  <div class="bg-white px-20 py-4 flex items-center gap-3 border-b border-gray-200 flex-wrap">
+    @for (cat of categories; track cat) {
+      <button
+        (click)="selectedCategory = cat"
+        [class]="selectedCategory === cat
+          ? 'px-5 py-2 rounded-full border border-black bg-black text-white text-xs font-medium cursor-pointer'
+          : 'px-5 py-2 rounded-full border border-gray-300 bg-white text-gray-600 text-xs font-medium cursor-pointer'"
       >
-        Add product
-      </a>
-    </div>
+        {{ cat }}
+      </button>
+    }
+  </div>
 
+  <!-- Contenu principal -->
+  <main class="px-20 py-10">
+
+    <!-- Chargement -->
     @if (isLoading()) {
-      <div class="rounded border border-slate-200 bg-white px-4 py-8 text-center text-sm text-slate-600">
+      <div class="text-center py-16 text-sm text-gray-500">
         Loading products...
       </div>
-    } @else if (errorMessage()) {
+    }
+
+    <!-- Erreur backend -->
+    @else if (errorMessage()) {
       <div class="rounded border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
         {{ errorMessage() }}
       </div>
-    } @else if (products().length === 0) {
-      <div class="rounded border border-slate-200 bg-white px-4 py-8 text-center text-sm text-slate-600">
+    }
+
+    <!-- Aucun produit -->
+    @else if (products().length === 0) {
+      <div class="text-center py-16 text-sm text-gray-500">
         No products yet.
       </div>
-    } @else {
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    }
+
+    <!-- Grille produits -->
+    @else {
+      <div class="grid grid-cols-4 gap-6">
         @for (product of products(); track product._id) {
-          <article class="overflow-hidden rounded-lg border border-slate-200 bg-white">
-            <div class="flex aspect-[4/3] items-center justify-center bg-emerald-100">
-              <span class="text-5xl font-bold text-emerald-700">{{ product.name.charAt(0).toUpperCase() }}</span>
+          <article
+            [routerLink]="['/products', product._id]"
+            class="bg-white rounded-2xl border border-[#e8f8f3] overflow-hidden cursor-pointer hover:-translate-y-1 hover:shadow-lg transition-all"
+          >
+            <!-- Image produit -->
+            <div class="w-full h-44 flex items-center justify-center bg-[#c8fae8]">
+              <span class="text-5xl font-bold text-[#0f6e56]">
+                {{ product.name.charAt(0).toUpperCase() }}
+              </span>
             </div>
 
-            <div class="space-y-3 p-4">
-              <div class="flex items-start justify-between gap-3">
-                <div>
-                  <h2 class="text-base font-semibold text-slate-950">{{ product.name }}</h2>
-                  @if (product.category) {
-                    <p class="mt-1 text-xs font-medium uppercase text-slate-500">{{ product.category }}</p>
-                  }
-                </div>
-                <p class="whitespace-nowrap text-sm font-bold text-slate-950">
-                  {{ product.price | currency: 'EUR' }}
-                </p>
-              </div>
+            <!-- Infos produit -->
+            <div class="p-4">
 
-              @if (product.description) {
-                <p class="line-clamp-2 min-h-10 text-sm text-slate-600">{{ product.description }}</p>
+              <!-- Catégorie -->
+              @if (product.category) {
+                <p class="text-[11px] font-semibold text-[#4ddbb8] uppercase tracking-wide">
+                  {{ product.category }}
+                </p>
               }
 
-              <a
-                [routerLink]="['/products', product._id]"
-                class="inline-flex w-full items-center justify-center rounded bg-blue-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
-              >
-                View product
-              </a>
+              <!-- Nom -->
+              <h2 class="text-base font-bold text-black mt-1 mb-1">{{ product.name }}</h2>
+
+              <!-- Description -->
+              @if (product.description) {
+                <p class="text-xs text-gray-500 leading-relaxed line-clamp-2">{{ product.description }}</p>
+              }
+
+              <!-- Prix + bouton -->
+              <div class="flex items-center justify-between mt-3">
+                <span class="text-lg font-bold text-black">{{ product.price | currency:'EUR' }}</span>
+                <button
+                  (click)="$event.stopPropagation()"
+                  class="bg-[#7fffd4] text-black text-xs font-semibold px-4 py-2 rounded-full border-none cursor-pointer hover:bg-[#4ddbb8] transition-colors"
+                >
+                  + Add
+                </button>
+              </div>
+
             </div>
           </article>
         }
       </div>
     }
+
   </main>
+
 </section>

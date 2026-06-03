@@ -1,83 +1,121 @@
-<section class="min-h-screen bg-slate-50">
-  <header class="border-b border-slate-200 bg-white">
-    <div class="mx-auto flex max-w-3xl items-center justify-between px-6 py-5">
-      <a routerLink="/products" class="text-xl font-bold text-slate-900">Okaz</a>
-      <a routerLink="/products" class="text-sm font-semibold text-blue-600">Back to products</a>
-    </div>
-  </header>
+<section class="bg-[#A4F4DC] min-h-screen">
 
-  <main class="mx-auto max-w-3xl px-6 py-8">
-    <div class="mb-7">
-      <h1 class="text-3xl font-bold text-slate-950">Add a product</h1>
-      <p class="mt-2 text-sm text-slate-600">Create an item through the backend API so it appears in the marketplace.</p>
+  <!-- Navbar -->
+  <nav class="h-[50px] bg-[#eef3ef] flex items-center justify-between px-4">
+    <span class="text-[21px] font-bold text-black">OKAZ</span>
+    <div class="flex items-center gap-14 mr-14">
+      <a routerLink="/" class="text-[18px] font-medium text-black no-underline">Home</a>
+      <a routerLink="/products" class="text-[18px] font-medium text-black no-underline border-b-2 border-black pb-[1px]">Product</a>
+      <a routerLink="/profile" class="text-[18px] font-medium text-black no-underline">Account</a>
+    </div>
+  </nav>
+
+  <!-- Fil d'ariane -->
+  <div class="bg-[#eef3ef] px-20 py-3 text-xs text-gray-500">
+    <a routerLink="/products" class="text-[#4ddbb8] font-semibold no-underline">Products</a>
+    &nbsp;/&nbsp;
+    <span>Add a product</span>
+  </div>
+
+  <!-- Contenu principal -->
+  <main class="px-20 py-10">
+
+    <!-- En-tête page -->
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold text-black mb-2">Add a product</h1>
+      <p class="text-sm font-medium text-black">Create an item through the backend API so it appears in the marketplace.</p>
     </div>
 
-    <form class="space-y-5 rounded-lg border border-slate-200 bg-white p-5" [formGroup]="form" (ngSubmit)="submit()">
+    <!-- Formulaire -->
+    <form
+      class="bg-white rounded-2xl border border-[#e8f8f3] p-8 space-y-6 max-w-2xl"
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+    >
+
+      <!-- Nom -->
       <div>
-        <label class="mb-1 block text-sm font-medium text-slate-700" for="name">Name</label>
+        <label class="block text-sm font-medium text-black mb-1" for="name">Name</label>
         <input
           id="name"
           type="text"
           formControlName="name"
-          class="w-full rounded border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
           placeholder="iPhone 13"
+          class="w-full px-3 py-2 border border-gray-200 rounded-lg bg-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-[#7fffd4] focus:border-[#4ddbb8]"
         />
+
+        <!-- Erreur nom -->
         @if (form.controls.name.touched && form.controls.name.invalid) {
-          <p class="mt-1 text-xs text-red-600">Name must contain at least 2 characters.</p>
+          <p class="text-xs text-red-500 mt-1">Name must contain at least 2 characters.</p>
         }
       </div>
 
+      <!-- Description -->
       <div>
-        <label class="mb-1 block text-sm font-medium text-slate-700" for="description">Description</label>
+        <label class="block text-sm font-medium text-black mb-1" for="description">Description</label>
         <textarea
           id="description"
           formControlName="description"
           rows="4"
-          class="w-full resize-y rounded border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
           placeholder="Smartphone Apple en bon etat"
+          class="w-full resize-y px-3 py-2 border border-gray-200 rounded-lg bg-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-[#7fffd4] focus:border-[#4ddbb8]"
         ></textarea>
       </div>
 
-      <div class="grid gap-5 sm:grid-cols-2">
+      <!-- Prix + Catégorie -->
+      <div class="grid grid-cols-2 gap-5">
+
+        <!-- Prix -->
         <div>
-          <label class="mb-1 block text-sm font-medium text-slate-700" for="price">Price</label>
+          <label class="block text-sm font-medium text-black mb-1" for="price">Price</label>
           <input
             id="price"
             type="number"
             min="0.01"
             step="0.01"
             formControlName="price"
-            class="w-full rounded border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
             placeholder="450"
+            class="w-full px-3 py-2 border border-gray-200 rounded-lg bg-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-[#7fffd4] focus:border-[#4ddbb8]"
           />
+
+          <!-- Erreur prix -->
           @if (form.controls.price.touched && form.controls.price.invalid) {
-            <p class="mt-1 text-xs text-red-600">Price must be greater than 0.</p>
+            <p class="text-xs text-red-500 mt-1">Price must be greater than 0.</p>
           }
         </div>
 
+        <!-- Catégorie -->
         <div>
-          <label class="mb-1 block text-sm font-medium text-slate-700" for="category">Category</label>
+          <label class="block text-sm font-medium text-black mb-1" for="category">Category</label>
           <input
             id="category"
             type="text"
             formControlName="category"
-            class="w-full rounded border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
             placeholder="Telephones"
+            class="w-full px-3 py-2 border border-gray-200 rounded-lg bg-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-[#7fffd4] focus:border-[#4ddbb8]"
           />
         </div>
+
       </div>
 
+      <!-- Erreur backend -->
       @if (errorMessage()) {
-        <p class="rounded border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{{ errorMessage() }}</p>
+        <div class="rounded border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+          {{ errorMessage() }}
+        </div>
       }
 
+      <!-- Bouton soumettre -->
       <button
         type="submit"
         [disabled]="isSubmitting()"
-        class="w-full rounded bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+        class="w-full bg-black text-white rounded-full py-3 px-6 text-sm font-bold border-none cursor-pointer hover:bg-gray-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {{ isSubmitting() ? 'Creating...' : 'Create product' }}
       </button>
+
     </form>
+
   </main>
+
 </section>

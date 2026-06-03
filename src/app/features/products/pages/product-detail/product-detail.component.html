@@ -1,48 +1,127 @@
-<section class="min-h-screen bg-slate-50">
-  <header class="border-b border-slate-200 bg-white">
-    <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-      <a routerLink="/products" class="text-xl font-bold text-slate-900">Okaz</a>
-      <a routerLink="/products" class="text-sm font-semibold text-blue-600">Back to products</a>
-    </div>
-  </header>
+<section class="bg-[#A4F4DC] min-h-screen">
 
-  <main class="mx-auto max-w-6xl px-6 py-8">
+  <!-- Navbar -->
+  <nav class="h-[50px] bg-[#eef3ef] flex items-center justify-between px-4">
+    <span class="text-[21px] font-bold text-black">OKAZ</span>
+    <div class="flex items-center gap-14 mr-14">
+      <a routerLink="/" class="text-[18px] font-medium text-black no-underline">Home</a>
+      <a routerLink="/products" class="text-[18px] font-medium text-black no-underline border-b-2 border-black pb-[1px]">Product</a>
+      <a routerLink="/profile" class="text-[18px] font-medium text-black no-underline">Account</a>
+    </div>
+  </nav>
+
+  <!-- Fil d'ariane -->
+  <div class="bg-[#eef3ef] px-20 py-3 text-xs text-gray-500">
+    <a routerLink="/products" class="text-[#4ddbb8] font-semibold no-underline">Products</a>
+    &nbsp;/&nbsp;
+    @if (product(); as item) {
+      <span>{{ item.category }}</span>&nbsp;/&nbsp;<span>{{ item.name }}</span>
+    }
+  </div>
+
+  <!-- Contenu principal -->
+  <main>
+
+    <!-- Chargement -->
     @if (isLoading()) {
-      <div class="rounded border border-slate-200 bg-white px-4 py-8 text-center text-sm text-slate-600">
+      <div class="text-center py-16 text-sm text-gray-500">
         Loading product...
       </div>
-    } @else if (errorMessage()) {
-      <div class="rounded border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+    }
+
+    <!-- Erreur backend -->
+    @else if (errorMessage()) {
+      <div class="mx-20 mt-10 rounded border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
         {{ errorMessage() }}
       </div>
-    } @else if (product(); as item) {
-      <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_420px]">
-        <div class="flex aspect-[4/3] items-center justify-center rounded-lg bg-emerald-100">
-          <span class="text-7xl font-bold text-emerald-700">{{ displayInitial() }}</span>
+    }
+
+    <!-- Détail produit -->
+    @else if (product(); as item) {
+
+      <!-- Layout split -->
+      <div class="grid grid-cols-2 min-h-[560px]">
+
+        <!-- Côté image -->
+        <div class="bg-[#7fffd4] flex items-center justify-center relative">
+          <span class="text-[110px] font-bold text-[#0f6e56]">
+            {{ displayInitial() }}
+          </span>
         </div>
 
-        <section class="space-y-5">
-          <div>
-            @if (item.category) {
-              <p class="mb-2 text-xs font-semibold uppercase text-slate-500">{{ item.category }}</p>
-            }
-            <h1 class="text-3xl font-bold text-slate-950">{{ item.name }}</h1>
-          </div>
+        <!-- Côté infos -->
+        <div class="bg-white px-14 py-14 flex flex-col justify-center">
 
-          <p class="text-2xl font-bold text-slate-950">{{ item.price | currency: 'EUR' }}</p>
-
-          @if (item.description) {
-            <p class="text-sm leading-6 text-slate-700">{{ item.description }}</p>
+          <!-- Catégorie -->
+          @if (item.category) {
+            <p class="text-xs font-bold text-[#4ddbb8] uppercase tracking-widest mb-2">
+              {{ item.category }}
+            </p>
           }
 
-          <button
-            type="button"
-            class="w-full rounded bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
-          >
-            Add to cart
-          </button>
-        </section>
+          <!-- Nom produit -->
+          <h1 class="text-4xl font-bold text-black mb-2 leading-tight">{{ item.name }}</h1>
+
+          <!-- Étoiles -->
+          <div class="flex items-center gap-2 mb-5">
+            <span class="text-yellow-400 text-base tracking-wide">★★★★★</span>
+            <span class="text-xs text-gray-400">Reviews</span>
+          </div>
+
+          <!-- Prix -->
+          <p class="text-4xl font-bold text-black mb-5">{{ item.price | currency:'EUR' }}</p>
+
+          <!-- Description -->
+          @if (item.description) {
+            <p class="text-sm text-gray-600 leading-relaxed mb-7">{{ item.description }}</p>
+          }
+
+          <!-- Quantité + boutons -->
+          <div class="flex items-center gap-4 mb-5">
+
+            <!-- Sélecteur quantité -->
+            <div class="flex items-center border border-gray-300 rounded-full overflow-hidden">
+              <button
+                (click)="decreaseQty()"
+                class="w-10 h-10 bg-white border-none text-xl cursor-pointer hover:bg-gray-50"
+              >−</button>
+              <span class="px-4 font-bold text-base">{{ qty }}</span>
+              <button
+                (click)="increaseQty()"
+                class="w-10 h-10 bg-white border-none text-xl cursor-pointer hover:bg-gray-50"
+              >+</button>
+            </div>
+
+            <!-- Ajouter au panier -->
+            <button
+              type="button"
+              class="flex-1 bg-black text-white rounded-full py-3 px-6 text-sm font-bold border-none cursor-pointer hover:bg-gray-800 transition-colors"
+            >
+              Add to Cart
+            </button>
+
+            <!-- Acheter maintenant -->
+            <button
+              type="button"
+              class="bg-[#7fffd4] text-black rounded-full py-3 px-6 text-sm font-bold border-none cursor-pointer hover:bg-[#4ddbb8] transition-colors"
+            >
+              Buy Now
+            </button>
+
+          </div>
+
+          <!-- Infos livraison -->
+          <div class="flex items-center gap-5 flex-wrap mt-2">
+            <span class="text-xs text-gray-500 font-medium">✅ Free delivery over €30</span>
+            <span class="text-xs text-gray-500 font-medium">🔄 Easy returns</span>
+            <span class="text-xs text-gray-500 font-medium">⚡ Same-day dispatch</span>
+          </div>
+
+        </div>
       </div>
+
     }
+
   </main>
+
 </section>

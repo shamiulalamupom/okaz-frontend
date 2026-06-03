@@ -18,6 +18,12 @@ export class ProductsListComponent {
   readonly isLoading = signal(true);
   readonly errorMessage = signal('');
 
+  // Catégories disponibles pour le filtre
+readonly categories = ['All', 'Grocery', 'Dairy', 'Snacks', 'Drinks', 'Household'];
+
+// Catégorie sélectionnée
+selectedCategory = 'All';
+
   constructor() {
     this.loadProducts();
   }

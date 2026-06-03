@@ -20,6 +20,15 @@ export class ProductDetailComponent {
   readonly errorMessage = signal('');
   readonly displayInitial = computed(() => this.product()?.name.charAt(0).toUpperCase() ?? '');
 
+// Quantité sélectionnée
+  qty = 1;
+
+  // Augmenter la quantité
+  increaseQty() { this.qty++; }
+
+  // Diminuer la quantité
+  decreaseQty() { if (this.qty > 1) this.qty--; }
+
   constructor() {
     const id = this.route.snapshot.paramMap.get('id');
 
