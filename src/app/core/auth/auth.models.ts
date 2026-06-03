@@ -1,7 +1,8 @@
 export interface User {
   id: string;
-  name: string;
+  name?: string;
   email: string;
+  roles?: string[];
 }
 
 export interface LoginPayload {

@@ -1,0 +1,48 @@
+<section class="min-h-screen bg-slate-50">
+  <header class="border-b border-slate-200 bg-white">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
+      <a routerLink="/products" class="text-xl font-bold text-slate-900">Okaz</a>
+      <a routerLink="/products" class="text-sm font-semibold text-blue-600">Back to products</a>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl px-6 py-8">
+    @if (isLoading()) {
+      <div class="rounded border border-slate-200 bg-white px-4 py-8 text-center text-sm text-slate-600">
+        Loading product...
+      </div>
+    } @else if (errorMessage()) {
+      <div class="rounded border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+        {{ errorMessage() }}
+      </div>
+    } @else if (product(); as item) {
+      <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_420px]">
+        <div class="flex aspect-[4/3] items-center justify-center rounded-lg bg-emerald-100">
+          <span class="text-7xl font-bold text-emerald-700">{{ displayInitial() }}</span>
+        </div>
+
+        <section class="space-y-5">
+          <div>
+            @if (item.category) {
+              <p class="mb-2 text-xs font-semibold uppercase text-slate-500">{{ item.category }}</p>
+            }
+            <h1 class="text-3xl font-bold text-slate-950">{{ item.name }}</h1>
+          </div>
+
+          <p class="text-2xl font-bold text-slate-950">{{ item.price | currency: 'EUR' }}</p>
+
+          @if (item.description) {
+            <p class="text-sm leading-6 text-slate-700">{{ item.description }}</p>
+          }
+
+          <button
+            type="button"
+            class="w-full rounded bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+          >
+            Add to cart
+          </button>
+        </section>
+      </div>
+    }
+  </main>
+</section>
