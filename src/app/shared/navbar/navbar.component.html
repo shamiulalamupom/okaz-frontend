@@ -1,0 +1,79 @@
+<nav class="h-[50px] bg-[#eef3ef] flex items-center justify-between px-6 relative">
+
+  <a routerLink="/" class="text-[21px] font-bold text-black no-underline tracking-tight">OKAZ</a>
+
+  <div class="flex items-center gap-10 mr-10">
+
+    <a
+      routerLink="/products"
+      routerLinkActive="border-b-2 border-black"
+      class="text-[16px] font-medium text-black no-underline pb-[2px] transition-colors"
+    >
+      Products
+    </a>
+
+    <!-- Auth pages: show a single CTA pill -->
+    @if (action() === 'signup') {
+      <a
+        routerLink="/auth/register"
+        class="text-[16px] font-medium text-black no-underline pb-[2px] transition-colors"
+      >
+        Sign up
+      </a>
+    } @else if (action() === 'login') {
+      <a
+        routerLink="/auth/login"
+        class="text-[16px] font-medium text-black no-underline pb-[2px] transition-colors"
+      >
+        Log in
+      </a>
+
+    <!-- Normal pages: avatar when logged in, Log in link when not -->
+    } @else if (isAuthenticated()) {
+      <div class="avatar-menu relative">
+        <button
+          (click)="toggle()"
+          class="w-9 h-9 rounded-full bg-[#c8fae8] flex items-center justify-center text-sm font-bold text-[#0f6e56] cursor-pointer border-2 border-transparent hover:border-[#4ddbb8] transition-all"
+        >
+          {{ (user()?.name ?? user()?.email ?? '?').charAt(0).toUpperCase() }}
+        </button>
+
+        @if (open()) {
+          <div class="absolute right-0 top-[calc(100%+8px)] w-56 bg-white rounded-2xl shadow-[0_8px_28px_rgba(0,0,0,0.12)] border border-gray-100 overflow-hidden z-50">
+            <div class="px-4 py-3 border-b border-gray-100">
+              @if (user()?.name) {
+                <p class="text-sm font-semibold text-black truncate">{{ user()!.name }}</p>
+              }
+              <p class="text-xs text-gray-400 truncate mt-0.5">{{ user()?.email }}</p>
+              @if (user()?.roles?.length) {
+                <div class="flex flex-wrap gap-1 mt-2">
+                  @for (role of user()!.roles!; track role) {
+                    <span class="px-2 py-0.5 rounded-full bg-[#c8fae8] text-[#0f6e56] text-[10px] font-semibold uppercase tracking-wide">
+                      {{ role }}
+                    </span>
+                  }
+                </div>
+              }
+            </div>
+            <button
+              (click)="logout()"
+              class="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-[#f5fdf9] transition-colors font-medium"
+            >
+              Log out
+            </button>
+          </div>
+        }
+      </div>
+
+    } @else {
+      <a
+        routerLink="/auth/login"
+        class="text-[16px] font-medium text-black no-underline pb-[2px] transition-colors"
+      >
+        Log in
+      </a>
+    }
+
+  </div>
+
+</nav>

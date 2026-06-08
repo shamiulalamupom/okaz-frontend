@@ -6,7 +6,7 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'auth/login',
+    loadComponent: () => import('./features/home/home.component').then((m) => m.HomeComponent),
   },
   {
     path: 'auth',
@@ -15,12 +15,6 @@ export const routes: Routes = [
   {
     path: 'products',
     loadChildren: () => import('./features/products/products.routes').then((m) => m.PRODUCTS_ROUTES),
-  },
-  {
-    path: 'profile',
-    // canActivate: [authGuard],
-    loadComponent: () =>
-      import('./features/auth/pages/profile/profile.component').then((m) => m.ProfileComponent),
   },
   {
     path: '**',

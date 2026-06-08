@@ -55,6 +55,19 @@ export class AuthService {
     );
   }
 
+  getMe() {
+    const token = this.token();
+    return this.http
+      .get<User>(`${environment.apiUrl}/auth/me`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      })
+      .pipe(
+        tap((user) => {
+          this.setState({ user, token: this.token() });
+        }),
+      );
+  }
+
   logout() {
     this.setState({
       user: null,

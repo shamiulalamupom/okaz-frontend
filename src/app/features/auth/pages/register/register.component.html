@@ -1,97 +1,115 @@
-<section class="bg-blue-500 min-h-screen flex items-center">
-  <div class="max-w-7xl mx-auto w-full px-6 grid md:grid-cols-2 gap-10 items-center">
+<section class="bg-[#A4F4DC] min-h-screen flex flex-col">
 
-    <!-- Texte gauche -->
-    <div class="text-white">
-      <h2 class="text-3xl font-bold mb-4">
-        Create your account,<br />
-        start shopping today
-      </h2>
+  <app-navbar action="login" />
 
-      <p class="text-sm">
-        Join us to manage your orders, save favorites, and enjoy a better experience.
-      </p>
-    </div>
+  <!-- Centered content -->
+  <div class="flex-1 flex items-center justify-center px-4 py-12">
+    <div class="w-full max-w-4xl grid md:grid-cols-2 gap-12 items-center">
 
-    <!-- Form register -->
-    <div class="bg-white p-6 rounded-xl shadow-md w-full max-w-sm mx-auto">
+      <!-- Left copy -->
+      <div class="hidden md:block">
+        <p class="text-xs font-semibold text-[#0f6e56] uppercase tracking-widest mb-3">New here?</p>
+        <h1 class="text-4xl font-bold text-black leading-snug mb-4">
+          Create your account,<br />start shopping today.
+        </h1>
+        <p class="text-sm text-gray-700 leading-relaxed max-w-xs">
+          Join OKAZ to browse products, manage your orders, and enjoy a straightforward shopping experience.
+        </p>
+      </div>
 
-      <form class="space-y-4" [formGroup]="form" (ngSubmit)="submit()">
+      <!-- Card -->
+      <div class="bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.10)] p-8 w-full">
 
-        <!-- Name -->
-        <div>
-          <label class="block text-sm mb-1" for="name">Name</label>
+        <h2 class="text-2xl font-bold text-black mb-1">Create account</h2>
+        <p class="text-sm text-gray-500 mb-7">Fill in the details below to get started.</p>
 
-          <input
-            id="name"
-            type="text"
-            formControlName="name"
-            class="w-full px-3 py-2 border rounded bg-gray-100"
-          />
+        <form class="flex flex-col gap-5" [formGroup]="form" (ngSubmit)="submit()">
 
-          @if (form.controls.name.touched && form.controls.name.invalid) {
-            <p class="text-xs text-red-500 mt-1">
-              Name must contain at least 2 characters.
-            </p>
+          <!-- Name -->
+          <div class="flex flex-col gap-1.5">
+            <label class="text-sm font-medium text-gray-700" for="name">Full name</label>
+            <input
+              id="name"
+              type="text"
+              formControlName="name"
+              placeholder="Your name"
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-xl bg-white text-sm text-black placeholder-gray-400 focus:outline-none focus:border-[#4ddbb8] focus:ring-2 focus:ring-[#c8fae8] transition"
+            />
+            @if (form.controls.name.touched && form.controls.name.invalid) {
+              <p class="text-xs text-red-500">Name must be at least 2 characters.</p>
+            }
+          </div>
+
+          <!-- Email -->
+          <div class="flex flex-col gap-1.5">
+            <label class="text-sm font-medium text-gray-700" for="email">Email</label>
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              placeholder="you@example.com"
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-xl bg-white text-sm text-black placeholder-gray-400 focus:outline-none focus:border-[#4ddbb8] focus:ring-2 focus:ring-[#c8fae8] transition"
+            />
+            @if (form.controls.email.touched && form.controls.email.invalid) {
+              <p class="text-xs text-red-500">Enter a valid email address.</p>
+            }
+          </div>
+
+          <!-- Password -->
+          <div class="flex flex-col gap-1.5">
+            <label class="text-sm font-medium text-gray-700" for="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              formControlName="password"
+              placeholder="••••••••"
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-xl bg-white text-sm text-black placeholder-gray-400 focus:outline-none focus:border-[#4ddbb8] focus:ring-2 focus:ring-[#c8fae8] transition"
+            />
+            @if (form.controls.password.touched && form.controls.password.invalid) {
+              <p class="text-xs text-red-500">Password must be at least 6 characters.</p>
+            }
+          </div>
+
+          <!-- Confirm password -->
+          <div class="flex flex-col gap-1.5">
+            <label class="text-sm font-medium text-gray-700" for="confirmPassword">Confirm password</label>
+            <input
+              id="confirmPassword"
+              type="password"
+              formControlName="confirmPassword"
+              placeholder="••••••••"
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-xl bg-white text-sm text-black placeholder-gray-400 focus:outline-none focus:border-[#4ddbb8] focus:ring-2 focus:ring-[#c8fae8] transition"
+            />
+            @if (form.controls.confirmPassword.touched && form.controls.confirmPassword.invalid) {
+              <p class="text-xs text-red-500">Passwords do not match.</p>
+            }
+          </div>
+
+          <!-- Backend error -->
+          @if (errorMessage()) {
+            <div class="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+              {{ errorMessage() }}
+            </div>
           }
-        </div>
 
-        <!-- Email -->
-        <div>
-          <label class="block text-sm mb-1" for="email">Email</label>
+          <!-- Submit -->
+          <button
+            type="submit"
+            [disabled]="isSubmitting()"
+            class="w-full bg-black text-white text-sm font-semibold py-3 rounded-xl hover:bg-gray-900 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {{ isSubmitting() ? 'Creating account…' : 'Sign Up' }}
+          </button>
 
-          <input
-            id="email"
-            type="email"
-            formControlName="email"
-            class="w-full px-3 py-2 border rounded bg-gray-100"
-          />
-        </div>
+        </form>
 
-        <!-- Password -->
-        <div>
-          <label class="block text-sm mb-1" for="password">Password</label>
+        <p class="text-sm text-gray-500 mt-6 text-center">
+          Already have an account?
+          <a routerLink="/auth/login" class="text-black font-semibold hover:underline">Log in</a>
+        </p>
 
-          <input
-            id="password"
-            type="password"
-            formControlName="password"
-            class="w-full px-3 py-2 border rounded bg-gray-100"
-          />
-        </div>
-
-        <!-- Confirm -->
-        <div>
-          <label class="block text-sm mb-1" for="confirmPassword">Confirm Password</label>
-
-          <input
-            id="confirmPassword"
-            type="password"
-            formControlName="confirmPassword"
-            class="w-full px-3 py-2 border rounded bg-gray-100"
-          />
-        </div>
-
-        <!-- Error -->
-        @if (errorMessage()) {
-          <p class="text-sm text-red-600">{{ errorMessage() }}</p>
-        }
-
-        <!-- Submit -->
-        <button
-          type="submit"
-          [disabled]="isSubmitting()"
-          class="w-full bg-blue-600 text-white py-2 rounded"
-        >
-          {{ isSubmitting() ? 'Creating account…' : 'Sign Up' }}
-        </button>
-      </form>
-
-      <!-- Login link -->
-      <p class="text-xs text-gray-600 mt-4 text-center">
-        Already have an account?
-        <a routerLink="/auth/login" class="text-blue-500">Log in</a>
-      </p>
+      </div>
     </div>
   </div>
+
 </section>

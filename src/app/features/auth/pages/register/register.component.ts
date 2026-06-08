@@ -4,10 +4,11 @@ import { Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 
 import { AuthService } from '../../../../core/auth/auth.service';
+import { NavbarComponent } from '../../../../shared/navbar/navbar.component';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, NavbarComponent],
   templateUrl: './register.component.html',
 })
 export class RegisterComponent {
@@ -74,7 +75,7 @@ export class RegisterComponent {
       .subscribe({
         next: () => {
           // Redirection après inscription
-          this.router.navigateByUrl('/profile');
+          this.router.navigateByUrl('/');
         },
         error: (error) => {
 

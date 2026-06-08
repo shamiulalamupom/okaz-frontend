@@ -4,10 +4,11 @@ import { Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 
 import { AuthService } from '../../../../core/auth/auth.service';
+import { NavbarComponent } from '../../../../shared/navbar/navbar.component';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, NavbarComponent],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
@@ -49,7 +50,7 @@ export class LoginComponent {
       .subscribe({
         next: () => {
           // Redirection après succès
-          this.router.navigateByUrl('/profile');
+          this.router.navigateByUrl('/');
         },
         error: (error) => {
           // Message erreur backend

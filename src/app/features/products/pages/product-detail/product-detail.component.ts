@@ -1,19 +1,23 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 
+import { AuthService } from '../../../../core/auth/auth.service';
 import { Product } from '../../../../core/products/product.models';
 import { ProductsService } from '../../../../core/products/products.service';
+import { NavbarComponent } from '../../../../shared/navbar/navbar.component';
 
 @Component({
   selector: 'app-product-detail',
-  imports: [CurrencyPipe, RouterLink],
+  imports: [CurrencyPipe, RouterLink, NavbarComponent],
   templateUrl: './product-detail.component.html',
 })
 export class ProductDetailComponent {
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private readonly productsService = inject(ProductsService);
+  private readonly authService = inject(AuthService);
 
   readonly product = signal<Product | null>(null);
   readonly isLoading = signal(true);
@@ -23,11 +27,24 @@ export class ProductDetailComponent {
 // Quantité sélectionnée
   qty = 1;
 
-  // Augmenter la quantité
   increaseQty() { this.qty++; }
-
-  // Diminuer la quantité
   decreaseQty() { if (this.qty > 1) this.qty--; }
+
+  addToCart() {
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigateByUrl('/auth/login');
+      return;
+    }
+    // cart logic goes here
+  }
+
+  buyNow() {
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigateByUrl('/auth/login');
+      return;
+    }
+    // checkout logic goes here
+  }
 
   constructor() {
     const id = this.route.snapshot.paramMap.get('id');

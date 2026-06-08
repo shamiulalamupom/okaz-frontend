@@ -1,14 +1,6 @@
 <section class="bg-[#A4F4DC] min-h-screen">
 
-  <!-- Navbar -->
-  <nav class="h-[50px] bg-[#eef3ef] flex items-center justify-between px-4">
-    <span class="text-[21px] font-bold text-black">OKAZ</span>
-    <div class="flex items-center gap-14 mr-14">
-      <a routerLink="/" class="text-[18px] font-medium text-black no-underline">Home</a>
-      <a routerLink="/products" class="text-[18px] font-medium text-black no-underline border-b-2 border-black pb-[1px]">Product</a>
-      <a routerLink="/profile" class="text-[18px] font-medium text-black no-underline">Account</a>
-    </div>
-  </nav>
+  <app-navbar />
 
   <!-- Fil d'ariane -->
   <div class="bg-[#eef3ef] px-20 py-3 text-xs text-gray-500">
@@ -95,6 +87,7 @@
             <!-- Ajouter au panier -->
             <button
               type="button"
+              (click)="addToCart()"
               class="flex-1 bg-black text-white rounded-full py-3 px-6 text-sm font-bold border-none cursor-pointer hover:bg-gray-800 transition-colors"
             >
               Add to Cart
@@ -103,6 +96,7 @@
             <!-- Acheter maintenant -->
             <button
               type="button"
+              (click)="buyNow()"
               class="bg-[#7fffd4] text-black rounded-full py-3 px-6 text-sm font-bold border-none cursor-pointer hover:bg-[#4ddbb8] transition-colors"
             >
               Buy Now
